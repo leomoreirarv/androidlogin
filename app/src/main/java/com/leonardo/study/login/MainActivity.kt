@@ -15,11 +15,14 @@ class MainActivity : AppCompatActivity() {
 
         val btn = findViewById<Button>(R.id.login)
 
-        var username = findViewById<EditText>(R.id.username).text.toString()
-        var password = findViewById<EditText>(R.id.password).text.toString()
+        // referencias para as views
+        var username = findViewById<EditText>(R.id.username)
+        var password = findViewById<EditText>(R.id.password)
 
         btn.setOnClickListener{
-            mainPresenter.doLogin(username, password)
+            val typedUserName = username.text.toString()
+            val typedPassword = password.text.toString()
+            mainPresenter.doLogin(typedUserName, typedPassword)
         }
     }
 
