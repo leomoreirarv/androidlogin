@@ -2,5 +2,7 @@ package com.leonardo.study.login
 
 interface MainViewInterface {
     fun showLoader()
-    fun showValidation(msg: String)
+    fun hideLoader()
+    fun showLoginFailure()
+    fun showLoginSuccess()
 }

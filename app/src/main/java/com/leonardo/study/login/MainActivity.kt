@@ -1,7 +1,7 @@
 package com.leonardo.study.login
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,37 +12,54 @@ class MainActivity : AppCompatActivity(), MainViewInterface {
 
     //Presenter Reference
     private lateinit var mainPresenter: MainPresenter
+
+    // Views
     private lateinit var progressbar: ProgressBar
-    private lateinit var btn: Button
     private lateinit var username: EditText
     private lateinit var password: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initViews()
+        mainPresenter = MainPresenter(this, LoginInteractor())
+    }
 
-        mainPresenter = MainPresenter(this)
+    private fun initViews() {
+        //View reference
+        username = findViewById(R.id.username)
+        password = findViewById(R.id.password)
+        progressbar = findViewById(R.id.progressbar)
 
-        //View elements reference
-        btn = findViewById<Button>(R.id.login)
-        username = findViewById<EditText>(R.id.username)
-        password = findViewById<EditText>(R.id.password)
-        progressbar = findViewById<ProgressBar>(R.id.progressbar)
-
-        btn.setOnClickListener{
-            var typedUserName = username.text.toString()
-            var typedPassword = password.text.toString()
-            mainPresenter.doLogin(typedUserName, typedPassword)
+        findViewById<Button>(R.id.login).setOnClickListener {
+            performLogin()
         }
     }
 
-    override fun showLoader(){
+    private fun performLogin() {
+        val typedUserName = username.text.toString()
+        val typedPassword = password.text.toString()
+        mainPresenter.doLogin(typedUserName, typedPassword)
+    }
+
+    // View callbacks
+    override fun showLoader() {
         progressbar.visibility = View.VISIBLE
     }
 
-    override fun showValidation(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    override fun hideLoader() {
+        progressbar.visibility = View.GONE
     }
 
+    override fun showLoginSuccess() {
+        showMessage(getString(R.string.login_success))
+    }
 
+    override fun showLoginFailure() {
+        showMessage(getString(R.string.login_error))
+    }
+
+    private fun showMessage(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
 }
