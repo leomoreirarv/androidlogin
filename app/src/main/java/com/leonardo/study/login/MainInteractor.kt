@@ -13,7 +13,7 @@ class MainInteractor {
 
     }
 
-    fun validadeUserPassword(username: String, password: String){
-
+    fun validadeUserPassword(username: String, password: String): Boolean{
+        return username == "picole" && password == "chuchu"
     }
 }
