@@ -1,4 +1,4 @@
-package com.leonardo.study.login
+package com.leonardo.study.login.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.leonardo.study.login.R
 
 class MainActivity : AppCompatActivity(), MainViewInterface {
 
@@ -32,12 +33,18 @@ class MainActivity : AppCompatActivity(), MainViewInterface {
         btn.setOnClickListener{
             var typedUserName = username.text.toString()
             var typedPassword = password.text.toString()
+            showLoader()
             mainPresenter.doLogin(typedUserName, typedPassword)
+            hideLoader()
         }
     }
 
     override fun showLoader(){
         progressbar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoader() {
+        progressbar.visibility = View.GONE
     }
 
     override fun showValidation(msg: String) {

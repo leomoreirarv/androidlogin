@@ -1,4 +1,4 @@
-package com.leonardo.study.login
+package com.leonardo.study.login.main
 
 class MainInteractor {
     fun getUsers(){
