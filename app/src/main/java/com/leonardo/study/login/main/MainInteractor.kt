@@ -1,6 +1,8 @@
 package com.leonardo.study.login.main
 
-class MainInteractor {
+import com.leonardo.study.login.user.UserRepository
+
+class MainInteractor(private val repository: UserRepository) {
     fun getUsers(){
 
     }
@@ -14,6 +16,6 @@ class MainInteractor {
     }
 
     fun validadeUserPassword(username: String, password: String): Boolean{
-        return username == "picole" && password == "chuchu"
+        return repository.checkPassword(username, password)
     }
 }

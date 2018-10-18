@@ -2,12 +2,17 @@ package com.leonardo.study.login.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.leonardo.study.login.R
+import com.leonardo.study.login.user.User
+import com.leonardo.study.login.user.UserDAO
+import com.leonardo.study.login.user.UserDatabase
+import com.leonardo.study.login.user.UserRepository
 
 class MainActivity : AppCompatActivity(), MainViewInterface {
 
@@ -22,7 +27,11 @@ class MainActivity : AppCompatActivity(), MainViewInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainPresenter = MainPresenter(this)
+        //Injecao de dependencias
+        val userDao = UserDatabase.getInstance(this)!!.userDao();
+        val userRepository = UserRepository(userDao)
+        val mainInteractor = MainInteractor(userRepository)
+        mainPresenter = MainPresenter(this, mainInteractor)
 
         //View elements reference
         btn = findViewById<Button>(R.id.login)
@@ -33,9 +42,7 @@ class MainActivity : AppCompatActivity(), MainViewInterface {
         btn.setOnClickListener{
             var typedUserName = username.text.toString()
             var typedPassword = password.text.toString()
-            showLoader()
             mainPresenter.doLogin(typedUserName, typedPassword)
-            hideLoader()
         }
     }
 
