@@ -1,21 +1,24 @@
 package com.leonardo.study.login.user
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 
 @Dao
 interface UserDAO {
     @Query("SELECT * FROM user")
     fun getAll(): List<User>
 
-    @Query("SELECT * from user where username == :username and password == :password")
+    @Query("SELECT * FROM user WHERE username == :username AND password == :password LIMIT 1")
     fun checkPassword(username: String, password: String) : List<User>
 
     @Insert
-    fun insertAll(vararg users: User)
+    fun insert(user: User): Long
 
     @Delete
     fun delete(user: User)
+
+    @Query("SELECT * FROM user WHERE id == :id")
+    fun selectUserById(id: Long): User
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(user: User)
 }

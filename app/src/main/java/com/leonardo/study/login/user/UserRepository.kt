@@ -6,7 +6,8 @@ package com.leonardo.study.login.user
  */
 class UserRepository(private val userDAO: UserDAO){
     fun insert(user: User){
-        userDAO.insertAll(user)
+        val id = userDAO.insert(user)
+        user.id = id
     }
 
     fun getAll(): List<User>{
@@ -16,5 +17,17 @@ class UserRepository(private val userDAO: UserDAO){
     fun checkPassword(username: String, password: String): Boolean{
         var users: List<User> = userDAO.checkPassword(username, password)
         return !users.isEmpty()
+    }
+
+    fun selectUserById(id: Long): User {
+        return userDAO.selectUserById(id)
+    }
+
+    fun deleteUser(user: User){
+        userDAO.delete(user)
+    }
+
+    fun update(user: User) {
+        userDAO.update(user)
     }
 }
