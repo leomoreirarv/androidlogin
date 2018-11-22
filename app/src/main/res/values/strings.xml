@@ -4,4 +4,5 @@
     <string name="invalid_username">Invalid Userame</string>
     <string name="invalid_password">Invalid Password</string>
     <string name="invalid_repassword">Invalid Repassword</string>
+    <string name="invalid_form">This form has wrong fields</string>
 </resources>

@@ -3,6 +3,8 @@ package com.leonardo.study.login.user.register
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.widget.EditText
+import android.widget.Toast
 import com.leonardo.study.login.R
 import com.leonardo.study.login.util.AfterTextChangedListener
 import com.leonardo.study.login.util.RegisterValidator
@@ -11,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 class RegisterActivity : AppCompatActivity(), RegisterViewInterface {
 
     private lateinit var presenter: RegisterPresenter
+    private lateinit var formItemsValidation: Array<Boolean>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +21,10 @@ class RegisterActivity : AppCompatActivity(), RegisterViewInterface {
 
         presenter = RegisterPresenter(this, RegisterValidator())
         initViews()
+        initFormItens()
+    }
+
+    private fun initFormItens(){
     }
 
     private fun initViews() {
@@ -44,6 +51,10 @@ class RegisterActivity : AppCompatActivity(), RegisterViewInterface {
                 presenter.validateRepassword(password.text.toString(), text.toString())
             }
         })
+
+        btnregister.setOnClickListener {
+            presenter.validateForm()
+        }
     }
 
     override fun showInvalidName() {
@@ -60,6 +71,16 @@ class RegisterActivity : AppCompatActivity(), RegisterViewInterface {
 
     override fun showInvalidRepassword() {
         repassword.error = getString(R.string.invalid_repassword)
+    }
+
+    override fun showValidInsertion() {
+    }
+
+    override fun showInvalidInsertion() {
+    }
+
+    override fun showInvalidForm() {
+        Toast.makeText(this, R.string.invalid_form, Toast.LENGTH_SHORT).show()
     }
 }
 

@@ -80,4 +80,18 @@ class RegisterPresenterTest {
         verify(view, never()).showInvalidRepassword()
     }
 
+    @Test
+    fun `When the form is invalid`(){
+        doReturn(false).`when`(validatorInterface).isValidForm(any())
+        presenter.validateForm()
+        verify(view).showInvalidForm()
+    }
+
+    @Test
+    fun `When the form is valid` (){
+        doReturn(true).`when`(validatorInterface).isValidForm(any())
+        presenter.validateForm()
+        verify(view, never()).showInvalidForm()
+    }
+
 }

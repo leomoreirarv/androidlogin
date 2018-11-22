@@ -1,6 +1,7 @@
 package com.leonardo.study.login.util
 
 class RegisterValidator: RegisterValidatorInterface {
+
     override fun isValidName(name: String): Boolean {
         return name.length >= 6
     }
@@ -16,6 +17,10 @@ class RegisterValidator: RegisterValidatorInterface {
 
     override fun isValidRepassword(password: String, repassword: String): Boolean {
         return repassword.equals(password)
+    }
+
+    override fun isValidForm(formItems: Array<Boolean>): Boolean {
+        return !formItems.contains(false)
     }
 
 }

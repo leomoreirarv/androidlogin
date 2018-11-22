@@ -6,4 +6,5 @@ interface RegisterValidatorInterface {
     fun isValidUserName(userName:String):Boolean
     fun isValidPassword(password:String):Boolean
     fun isValidRepassword(password:String, repassword:String):Boolean
+    fun isValidForm(formItems: Array<Boolean>):Boolean
 }

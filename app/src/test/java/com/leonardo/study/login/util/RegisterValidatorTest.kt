@@ -63,4 +63,16 @@ class RegisterValidatorTest{
         val isValid = registerValidator.isValidRepassword("xpto", "xpto")
         Assert.assertTrue(isValid)
     }
+
+    @Test
+    fun `When the form has one or more invalid items` (){
+        val isValid = registerValidator.isValidForm(arrayOf(true, true, false, true))
+        Assert.assertFalse(isValid)
+    }
+
+    @Test
+    fun `When the form has every field valid` (){
+        val isValid = registerValidator.isValidForm(Array(4) {true})
+        Assert.assertTrue(isValid)
+    }
 }
